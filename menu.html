@@ -35,9 +35,10 @@
             visibility: visible;
         }
         .unvisible {
-            visibility: none;
+            visibility: hidden;
         }
         .arrow{
+            top: 0;
             display: flex;
             position: absolute;
             height: 100%;
@@ -79,7 +80,7 @@
                         let left_arrow = document.querySelector(".left")
                         let right_arrow = document.querySelector(".right")
                         scroller.addEventListener('scroll', (e) => {
-                            if(scroller.scrollLeft <= 5){
+                            if(scroller.scrollLeft <= scroller.clientWidth / 2){
                                 if(left_arrow.classList.contains("unvisible")){
                                     left_arrow.classList.remove("unvisible");
                                     left_arrow.classList.add("visible");
