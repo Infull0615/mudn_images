@@ -85,20 +85,20 @@
                                     left_arrow.classList.remove("unvisible");
                                     left_arrow.classList.add("visible");
                                 }
-                                else if (left_arrow.classList.contains("visible")){
-                                    left_arrow.classList.remove("visible");
-                                    left_arrow.classList.add("unvisible");
-                                }
                             }
-                            else if(scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 5){
+                            else if (left_arrow.classList.contains("visible")){
+                                left_arrow.classList.remove("visible");
+                                left_arrow.classList.add("unvisible");
+                            }
+                            else if(scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth / 2){
                                 if(right_arrow.classList.contains("visible")){
                                     right_arrow.classList.remove("visible");
                                     right_arrow.classList.add("unvisible");
                                 }
-                                else if (right_arrow.classList.contains("unvisible")){
-                                    right_arrow.classList.remove("unvisible");
-                                    right_arrow.classList.add("visible");
-                                }
+                            }
+                            else if (right_arrow.classList.contains("unvisible")){
+                                right_arrow.classList.remove("unvisible");
+                                right_arrow.classList.add("visible");
                             }
                         })
                    }
