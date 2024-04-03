@@ -31,12 +31,33 @@
             height: 100vh;
             object-fit: contain;
         }
-    </style>
+        .visible {
+            visibility: visible;
+        }
+        .unvisible {
+            visibility: none;
+        }
+        .arrow{
+            display: flex;
+            position: absolute;
+            height: 100%;
+            align-items: center;
+        }
+        .arrow img {
+            width: 2rem;
+            height: 2rem;
+        }
+        .right{
+            right: 0;
+            transform: scaleX(-1);
+        }
+        .left{
+            left: 0;
+        }
+   </style>
 </head>
 <body>
-    <div class="scroll">
-        
-    </div>
+    <p>로딩중!</p>
     <script>
         let images = []
         const fc = (images, count) => {
@@ -52,14 +73,37 @@
                         images.forEach(element => {
                             scroll_html += `<img src=\"${element}\">`
                         });
-                        let set_html = `<div class="scroll"> ${scroll_html}</div>`
+                        let set_html = `<div class="left arrow unvisible"><img src =\"https://raw.githubusercontent.com/Infull0615/mudn_images/main/left.webp\"></div><img src=\"\"><div class="scroll"> ${scroll_html}</div><div class="right arrow visible"><img src =\"https://raw.githubusercontent.com/Infull0615/mudn_images/main/left.webp\"></div>`
                         document.body.innerHTML = set_html;
+                        let scroller = document.querySelector(".scroll")
+                        let left_arrow = document.querySelector(".left")
+                        let right_arrow = document.querySelector(".right")
+                        scroller.addEventListener('scroll', (e) => {
+                            if(scroller.scrollLeft <= 5){
+                                if(left_arrow.classList.contains("unvisible")){
+                                    left_arrow.classList.remove("unvisible");
+                                    left_arrow.classList.add("visible");
+                                }
+                                else if (left_arrow.classList.contains("visible")){
+                                    left_arrow.classList.remove("visible");
+                                    left_arrow.classList.add("unvisible");
+                                }
+                            }
+                            else if(scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - 5){
+                                if(right_arrow.classList.contains("visible")){
+                                    right_arrow.classList.remove("visible");
+                                    right_arrow.classList.add("unvisible");
+                                }
+                                else if (right_arrow.classList.contains("unvisible")){
+                                    right_arrow.classList.remove("unvisible");
+                                    right_arrow.classList.add("visible");
+                                }
+                            }
+                        })
                    }
                 })
-            console.log(images)
         }
         fc(images, 1);
-        console.log(images);
     </script>
 </body>
 </html>
