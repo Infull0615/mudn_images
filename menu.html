@@ -90,7 +90,7 @@
                                 left_arrow.classList.remove("visible");
                                 left_arrow.classList.add("unvisible");
                             }
-                            if(scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth / 2){
+                            if(scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - scroller.clientWidth / 2){
                                 if(right_arrow.classList.contains("visible")){
                                     right_arrow.classList.remove("visible");
                                     right_arrow.classList.add("unvisible");
