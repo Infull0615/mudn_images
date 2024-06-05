@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MudnMenu</title>
+  <style>
+    body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+
+    .scroll {
+      position: relative;
+      display: flex;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      overflow-x: scroll;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      -webkit-scroll-snap-type: x mandatory;
+    }
+
+    .scroll img {
+      scroll-snap-align: start;
+      -webkit-scroll-snap-align: start;
+      margin: 0;
+      padding: 0;
+      width: 100vw;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-around;
+      padding: 2rem 4rem;
+      gap: 2rem;
+    }
+
+    .footer a {
+      height: auto;
+    }
+
+    .footer img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .visible {
+      visibility: visible;
+    }
+
+    .unvisible {
+      visibility: hidden;
+    }
+
+    .arrow {
+      top: 0;
+      display: flex;
+      position: absolute;
+      height: 100%;
+      align-items: center;
+      z-index: 1;
+      pointer-events: none;
+    }
+
+    .arrow img {
+      width: 2rem;
+      height: 2rem;
+    }
+
+    .right {
+      right: 0;
+      transform: scaleX(-1);
+    }
+
+    .left {
+      left: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="left arrow unvisible"><img src="https://raw.githubusercontent.com/Infull0615/mudn_images/main/left.webp">
+  </div>
+  <div class="scroll">
+    <p>로딩중!</p>
+  </div>
+  <div class="right arrow unvisible"><img src="https://raw.githubusercontent.com/Infull0615/mudn_images/main/left.webp">
+  </div>
+  <footer class="footer">
+    <a href="https://mudn.io/"><img src="images/home.webp"></a>
+    <a href="https://www.instagram.com/mud.n_jb/"><img src="images/instar.webp"></a>
+    <a href="https://blog.naver.com/sudkqk"><img src="images/blog.webp"></a>
+    <a href="tel:063-717-7473"><img src="images/tel.webp"></a>
+  </footer>
+  <script>
+    let images = []
+    const fc = (images, count) => {
+      let urlset = `https://raw.githubusercontent.com/Infull0615/mudn_images/main/test/menu${count}.webp`;
+      fetch(urlset)
+        .then(res => {
+          if (res.ok) {
+            images.push(urlset);
+            fc(images, count += 1);
+          }
+          else {
+            let scroll_html = "";
+            images.forEach(element => {
+              scroll_html += `<img src=\"${element}\">`
+            });
+            let set_html = scroll_html
+            let scroller = document.querySelector(".scroll")
+
+            scroller.innerHTML = set_html;
+
+            let left_arrow = document.querySelector(".left")
+            let right_arrow = document.querySelector(".right")
+            right_arrow.classList.remove("unvisible")
+            right_arrow.classList.add("visible")
+
+            scroller.addEventListener('scroll', (e) => {
+              if (scroller.scrollLeft >= scroller.clientWidth / 2) {
+                if (left_arrow.classList.contains("unvisible")) {
+                  left_arrow.classList.remove("unvisible");
+                  left_arrow.classList.add("visible");
+                }
+              }
+              else if (left_arrow.classList.contains("visible")) {
+                left_arrow.classList.remove("visible");
+                left_arrow.classList.add("unvisible");
+              }
+              if (scroller.scrollLeft + scroller.clientWidth >= scroller.scrollWidth - scroller.clientWidth / 2) {
+                if (right_arrow.classList.contains("visible")) {
+                  right_arrow.classList.remove("visible");
+                  right_arrow.classList.add("unvisible");
+                }
+              }
+              else if (right_arrow.classList.contains("unvisible")) {
+                right_arrow.classList.remove("unvisible");
+                right_arrow.classList.add("visible");
+              }
+            })
+          }
+        })
+    }
+    fc(images, 1);
+  </script>
+</body>
+
+</html>
